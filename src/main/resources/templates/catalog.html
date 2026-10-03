@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bowling ball catalog</title>
+<style>
+body {font-family:system-ui,sans-serif;max-width:1100px;margin:2rem auto;padding:0 1rem;color:#252525;background:#fafafa}
+form {display:flex;flex-wrap:wrap;gap:1rem;align-items:end;padding:1rem;background:#eee;border-radius:8px}
+label {display:flex;flex-direction:column;gap:.4rem} input,select,button {font:inherit;padding:.5rem;max-width:100%}
+a {color:#174c9a} table {width:100%;border-collapse:collapse;background:white} th,td {text-align:left;padding:.8rem;border-bottom:1px solid #ddd}
+.table-wrap {overflow-x:auto} nav {display:flex;gap:1rem;align-items:center;margin:1.5rem 0}
+</style></head>
+<body><main><h1>Bowling ball catalog</h1>
+<form action="/catalog/search" method="get">
+<label>Ball name<input type="search" name="name" th:value="${name}" placeholder="Search by name"></label>
+<label>Weight<select name="weight"><option value="">All weights</option><option th:each="value : ${weights}" th:value="${value}" th:text="${value + ' lb'}" th:selected="${value == weight}"></option></select></label>
+<label>Coverstock type<select name="coverstockType"><option value="">All coverstocks</option><option th:each="value : ${coverstockTypes}" th:value="${value}" th:text="${value}" th:selected="${value == coverstockType}"></option></select></label>
+<label>Core type<select name="coreType"><option value="">All cores</option><option th:each="value : ${coreTypes}" th:value="${value}" th:text="${value}" th:selected="${value == coreType}"></option></select></label>
+<label>Brand<input name="brand" list="brands" th:value="${brand}" placeholder="All brands"><datalist id="brands"><option th:each="value : ${brands}" th:value="${value}"></option></datalist></label>
+<label>Sort<select name="sort"><option value="name" th:selected="${sort == 'name'}">Name A–Z</option><option value="name-desc" th:selected="${sort == 'name-desc'}">Name Z–A</option></select></label>
+<button type="submit">Search</button><a href="/catalog">Clear filters</a></form>
+<p>Search your catalog, or enter a brand and full ball name to find a missing ball on Bowwwl (for example, Storm and Phaze II).</p>
+<p role="status" th:if="${lookupMessage}" th:text="${lookupMessage}"></p>
+<p th:text="${results.totalElements + ' balls found'}"></p>
+<p th:if="${balls.isEmpty()}">No bowling balls match this search. Try changing your filters or <a href="/catalog">clear filters</a>.</p>
+<div class="table-wrap" th:unless="${balls.isEmpty()}"><table><thead><tr><th scope="col">Name</th><th scope="col">Brand</th><th scope="col">Weights</th><th scope="col">Coverstock</th><th scope="col">Core</th></tr></thead>
+<tbody><tr th:each="ball : ${balls}"><td><a th:href="${ball.sourceUrl}" th:text="${ball.name}"></a></td><td th:text="${ball.brand ?: 'Unspecified'}"></td><td th:text="${ball.weights.isEmpty() ? 'Unspecified' : #strings.listJoin(ball.weights, ', ') + ' lb'}"></td><td th:text="${ball.coverstockType ?: 'Unspecified'}"></td><td th:text="${ball.coreType ?: 'Unspecified'}"></td></tr></tbody></table></div>
+<nav aria-label="Catalog pagination" th:if="${results.totalPages > 0}">
+<a th:if="${results.hasPrevious()}" th:href="@{/catalog(name=${name},weight=${weight},coverstockType=${coverstockType},coreType=${coreType},brand=${brand},sort=${sort},page=${results.number - 1})}">Previous</a>
+<span th:text="${'Page ' + (results.number + 1) + ' of ' + results.totalPages}"></span>
+<a th:if="${results.hasNext()}" th:href="@{/catalog(name=${name},weight=${weight},coverstockType=${coverstockType},coreType=${coreType},brand=${brand},sort=${sort},page=${results.number + 1})}">Next</a></nav>
+</main></body></html>
