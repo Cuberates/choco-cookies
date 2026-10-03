@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ChocoCookiesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ChocoCookiesApplication.class, args);
+		var context = SpringApplication.run(ChocoCookiesApplication.class, args);
+        if (context.getEnvironment().getProperty("catalog.import", Boolean.class, false)) {
+            context.close();
+        }
 	}
-
 }
