@@ -1,0 +1,3 @@
+- Compile Maven Springboot 4.0.8 / Java 17
+- Check out includes in `pom.xml` to include dependencies as necessary.  
+- For now, we want to just print helloworld and support different endpoints.
