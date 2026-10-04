@@ -407,11 +407,6 @@ h1 span {
   font-size:12px;
 }
 
-.filter-panel summary {
-  cursor:pointer;
-  width:fit-content;
-}
-
 .filters {
   margin-top:12px;
   display:grid;
