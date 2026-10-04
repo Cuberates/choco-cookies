@@ -1,7 +1,5 @@
 (() => {
   'use strict';
-  const search = document.getElementById('ball-name');
-  const results = document.getElementById('catalog-results');
   const dialog = document.getElementById('info-dialog');
   const content = document.getElementById('dialog-content');
   const storageKey = 'lane-index-arsenal-v1';
@@ -32,22 +30,17 @@
       if (!button.querySelector('img')) button.textContent = selected ? 'Saved' : 'Save';
     });
   }
-  function focusSearch() { search.scrollIntoView({ block: 'center' }); search.focus(); }
-  document.querySelectorAll('[data-focus-search]').forEach(button => button.addEventListener('click', focusSearch));
-  document.querySelectorAll('[data-focus-brand]').forEach(button => button.addEventListener('click', () => {
-    document.querySelector('.filter-panel').open = true;
-    const brand = document.querySelector('input[name=brand]');
-    brand.scrollIntoView({ block: 'center' }); brand.focus();
-  }));
   document.addEventListener('keydown', event => {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
       event.preventDefault(); if (dialog.open) dialog.close(); focusSearch();
     }
   });
-  document.querySelectorAll('[data-open-catalog]').forEach(link => link.addEventListener('click', () => { results.open = true; }));
-  if (results.open) requestAnimationFrame(() => results.scrollIntoView({ block: 'start' }));
   const row = document.getElementById('featured-balls');
-
+  document.querySelectorAll('[data-carousel]').forEach(button => button.addEventListener('click', () => {
+    if (button.dataset.carousel === 'next') row.append(row.firstElementChild);
+    else row.prepend(row.lastElementChild);
+    row.scrollLeft = 0;
+  }));
   document.querySelectorAll('[data-save]').forEach(button => button.addEventListener('click', () => {
     const product = productFromCard(button.closest('[data-product-name]'));
     const index = saved.findIndex(item => productKey(item) === productKey(product));

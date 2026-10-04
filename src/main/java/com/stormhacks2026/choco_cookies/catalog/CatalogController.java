@@ -64,7 +64,14 @@ public class CatalogController {
     }
 
     @GetMapping("/")
-    public String home() { return "redirect:/catalog"; }
+    public String home(Model model) { 
+        model.addAttribute("catalogCount", repository.count());
+        model.addAttribute("brands", repository.findBrands());
+        model.addAttribute("coverstockTypes", repository.findCoverstockTypes());
+        model.addAttribute("coreTypes", repository.findCoreTypes());
+        model.addAttribute("weights", repository.findWeights());
+        return "index";
+    }
 
     @GetMapping("/catalog")
     @Transactional(readOnly = true)

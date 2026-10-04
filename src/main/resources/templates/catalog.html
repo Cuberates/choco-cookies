@@ -16,9 +16,9 @@
 <body><a class="skip-link" href="#main">Skip to content</a>
   <div class="site-shell">
     <header class="site-header" data-node-id="2:4549">
-      <div class="header-left"><a class="brand" href="/catalog" aria-label="Bowler's Journal home"><img src="/assets/figma/ball-symbol.svg" class="brand-mark" alt=""><span
+      <div class="header-left"><a class="brand" href="/" aria-label="Bowler's Journal home"><img src="/assets/figma/ball-symbol.svg" class="brand-mark" alt=""><span
             class="brand-name"><strong>BOWLER’S</strong><small>JOURNAL</small></span></a>
-        <nav class="primary-nav" aria-label="Primary"><a href="#catalog-results" data-open-catalog>Ball
+        <nav class="primary-nav" aria-label="Primary"><a href="/catalog" data-open-catalog>Ball
             Database</a><a href="/tournaments">Tournaments</a></nav>
       </div>
       <div class="header-actions">
@@ -26,26 +26,7 @@
       </div>
     </header>
     <main id="main">
-      <section class="hero" aria-labelledby="hero-title" data-node-id="2:4578">
-        <div class="hero-copy">
-          <h1 id="hero-title">Browse Bowling Balls</h1>
-          <p class="hero-description">Search and compare bowling balls by coverstock, core dynamics, RG, differential,
-            finish, and lane condition — without the marketing fog.</p>
-          <form class="search-form" action="/catalog/search" method="get" id="ball-search">
-            <div class="search-bar"><img src="/assets/figma/search.svg" alt="">
-              <label class="sr-only" for="ball-name">Ball name, brand, core, or coverstock</label><input id="ball-name"
-                type="search" name="name" th:value="${name}" placeholder="Search by ball, brand, core, or coverstock…"
-                autocomplete="off">
-                <button class="primary-button" type="submit"><img src="/assets/figma/arrow-right.svg"
-                  alt=""><span>Search database</span></button>
-            </div>
-          </form>
-          <div class="database-stats">
-            <div><strong th:text="${catalogCount}">0</strong><span>balls indexed</span></div>
-            <div><strong th:text="${brands.size()}">0</strong><span>brands tracked</span></div>
-            <div><strong th:text="${weights.size()}">0</strong><span>weights available</span></div>
-          </div>
-          <details class="filter-panel"
+        <details class="filter-panel"
             th:open="${weight != null or !brand.isEmpty() or !coverstockType.isEmpty() or !coreType.isEmpty() or sort != 'name'}">
             <summary>Filter &amp; look up</summary>
             <div class="filters"><label>Brand<input name="brand" form="ball-search" list="brands" th:value="${brand}"
@@ -77,158 +58,6 @@
                   filters</button><a href="/catalog">Clear filters</a></div>
             </div>
           </details>
-        </div>
-        <div class="hero-visual" data-node-id="2:4613"><img src="/assets/phaze-ii.png"
-            alt="Storm Phaze II bowling ball with red, blue, and purple cover and yellow Phaze II logo" class="hero-image">
-          <div class="featured-note">
-            <a href="/catalog/search?brand=Storm&amp;name=Phaze%20II">
-              <h2>Storm Phaze II</h2>
-            </a>
-            <p>The control benchmark: predictable midlane read with a continuous, forgiving shape.</p>
-          </div>
-        </div>
-      </section>
-      <p class="lookup-status" role="status" th:if="${lookupMessage}" th:text="${lookupMessage}"></p>
-      <section class="featured-section" aria-label="Featured bowling balls" data-node-id="63:294">
-        <div class="carousel">
-          <button class="carousel-button" data-carousel="previous" aria-label="Previous featured balls"><img
-              src="/assets/figma/chevron-backward.png" alt=""></button>
-          <div class="product-row" id="featured-balls">
-            <article class="ball-card" data-node-id="51:4" data-product-name="Ion Max" data-brand="Storm"
-              data-cover="NRG™ Solid" data-core="Asymmetrical" data-rg="2.47" data-diff="0.055"
-              data-finish="2000 Abralon">
-              <div class="product-image"><img src="/assets/figma/ion-max.png" alt="Storm Ion Max bowling ball"
-                  class="ball-image">
-                <div class="image-vignette"></div><span class="badge ">New release</span>
-                <button class="save-button" data-save aria-pressed="false"
-                  aria-label="Save Ion Max to your arsenal"><img src="/assets/figma/bookmark.svg" alt=""></button>
-                <span class="lane-fit"><img src="/assets/figma/condition-dot.svg" alt="">Heavy oil</span>
-              </div>
-              <div class="product-content">
-                <div class="product-heading">
-                  <div class="brand-year"><span class="brand-label">Storm</span><span class="year">2025</span></div>
-                  <h3><a href="/catalog/search?brand=Storm&amp;name=Ion%20Max">Ion Max</a></h3>
-                  <p class="reaction-shape">Strong / continuous</p>
-                </div>
-                <div class="spec-divider"><img src="/assets/figma/divider.svg" alt=""></div>
-                <dl class="spec-row">
-                  <div>
-                    <dt>RG</dt>
-                    <dd>2.47</dd>
-                  </div>
-                  <div>
-                    <dt>Diff</dt>
-                    <dd>0.055</dd>
-                  </div>
-                  <div>
-                    <dt>Finish</dt>
-                    <dd>2000 Abralon</dd>
-                  </div>
-                </dl>
-                <dl class="spec-row materials">
-                  <div>
-                    <dt>Cover</dt>
-                    <dd>NRG™ Solid</dd>
-                  </div>
-                  <div>
-                    <dt>Core</dt>
-                    <dd>Asymmetrical</dd>
-                  </div>
-                </dl>
-              </div>
-            </article>
-            <article class="ball-card" data-node-id="51:51" data-product-name="Mesmerize" data-brand="Brunswick"
-              data-cover="HK22C-Evo Solid" data-core="Asymmetrical" data-rg="2.499" data-diff="0.050"
-              data-finish="1500 Siaair">
-              <div class="product-image"><img src="/assets/figma/mesmerize.png" alt="Brunswick Mesmerize bowling ball"
-                  class="ball-image">
-                <div class="image-vignette"></div><span class="badge red">High performance</span>
-                <button class="save-button" data-save aria-pressed="false"
-                  aria-label="Save Mesmerize to your arsenal"><img src="/assets/figma/bookmark.svg" alt=""></button>
-                <span class="lane-fit"><img src="/assets/figma/condition-dot.svg" alt="">Heavy oil</span>
-              </div>
-              <div class="product-content">
-                <div class="product-heading">
-                  <div class="brand-year"><span class="brand-label">Brunswick</span><span class="year">2024</span></div>
-                  <h3><a href="/catalog/search?brand=Brunswick&amp;name=Mesmerize">Mesmerize</a></h3>
-                  <p class="reaction-shape">Early / angular</p>
-                </div>
-                <div class="spec-divider"><img src="/assets/figma/divider-wide.svg" alt=""></div>
-                <dl class="spec-row">
-                  <div>
-                    <dt>RG</dt>
-                    <dd>2.499</dd>
-                  </div>
-                  <div>
-                    <dt>Diff</dt>
-                    <dd>0.050</dd>
-                  </div>
-                  <div>
-                    <dt>Finish</dt>
-                    <dd>1500 Siaair</dd>
-                  </div>
-                </dl>
-                <dl class="spec-row materials">
-                  <div>
-                    <dt>Cover</dt>
-                    <dd>HK22C-Evo Solid</dd>
-                  </div>
-                  <div>
-                    <dt>Core</dt>
-                    <dd>Asymmetrical</dd>
-                  </div>
-                </dl>
-              </div>
-            </article>
-            <article class="ball-card" data-node-id="51:98" data-product-name="Effect Tour" data-brand="Radical"
-              data-cover="HK22 Pearl" data-core="Symmetrical" data-rg="2.48" data-diff="0.050"
-              data-finish="500 / Compound">
-              <div class="product-image"><img src="/assets/figma/effect-tour.png" alt="Radical Effect Tour bowling ball"
-                  class="ball-image">
-                <div class="image-vignette"></div><span class="badge green">Staff pick</span>
-                <button class="save-button" data-save aria-pressed="false"
-                  aria-label="Save Effect Tour to your arsenal"><img src="/assets/figma/bookmark.svg" alt=""></button>
-                <span class="lane-fit"><img src="/assets/figma/condition-dot.svg" alt="">Medium oil</span>
-              </div>
-              <div class="product-content">
-                <div class="product-heading">
-                  <div class="brand-year"><span class="brand-label">Radical</span><span class="year">2025</span></div>
-                  <h3><a href="/catalog/search?brand=Radical&amp;name=Effect%20Tour">Effect Tour</a></h3>
-                  <p class="reaction-shape">Clean / sharp</p>
-                </div>
-                <div class="spec-divider"><img src="/assets/figma/divider.svg" alt=""></div>
-                <dl class="spec-row">
-                  <div>
-                    <dt>RG</dt>
-                    <dd>2.48</dd>
-                  </div>
-                  <div>
-                    <dt>Diff</dt>
-                    <dd>0.050</dd>
-                  </div>
-                  <div>
-                    <dt>Finish</dt>
-                    <dd>500 / Compound</dd>
-                  </div>
-                </dl>
-                <dl class="spec-row materials">
-                  <div>
-                    <dt>Cover</dt>
-                    <dd>HK22 Pearl</dd>
-                  </div>
-                  <div>
-                    <dt>Core</dt>
-                    <dd>Symmetrical</dd>
-                  </div>
-                </dl>
-              </div>
-            </article>
-          </div><button class="carousel-button" data-carousel="next" aria-label="Next featured balls"><img
-              src="/assets/figma/chevron-forward.png" alt=""></button>
-        </div>
-        <details class="catalog-results" id="catalog-results"
-          th:open="${!name.isEmpty() or weight != null or !brand.isEmpty() or !coverstockType.isEmpty() or !coreType.isEmpty() or results.number > 0 or sort != 'name' or lookupMessage != null}">
-          <summary class="primary-button">See more</summary>
           <div class="results-content">
             <div class="results-heading">
               <div>
