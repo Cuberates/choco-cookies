@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#080c10">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#141414">
   <title>Locations · Bowler’s Journal</title>
-  <link rel="stylesheet" href="/css/fonts.css"><link rel="stylesheet" href="/css/catalog.css"><link rel="stylesheet" href="/css/tournaments.css">
+  <script src="/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
+  <link rel="stylesheet" href="/css/fonts.css"><link rel="stylesheet" href="/css/catalog.css?v=neutral-chevrons-1"><link rel="stylesheet" href="/css/tournaments.css?v=neutral-3">
 </head>
 <body><a class="skip-link" href="#main">Skip to content</a>
 <div class="site-shell">
   <header th:replace="~{fragments/tournament-shell :: header}"></header>
   <main id="main" class="tournament-main">
-    <section class="tournament-hero" aria-labelledby="locations-title"><div><span class="badge">Find your lanes</span><h1 id="locations-title">Explore tournament <span>locations</span></h1><p>Discover venues hosting upcoming events and see what’s on at each location.</p></div><div class="tournament-stat"><img src="/assets/location.svg" alt=""><strong th:text="${results.totalElements}">0</strong><span>matching tournament venues</span></div></section>
+    <section class="tournament-hero" aria-labelledby="locations-title"><div><h1 id="locations-title">Explore tournament <span>locations</span></h1><p>Discover venues hosting upcoming events and see what’s on at each location.</p></div><div class="tournament-stat"><img src="/assets/location.svg" alt=""><strong th:text="${results.totalElements}">0</strong><span>matching tournament venues</span></div></section>
     <nav th:replace="~{fragments/tournament-shell :: tabs('locations')}"></nav>
     <form class="tournament-search" action="/locations" method="get">
       <div class="tournament-search-row"><label class="sr-only" for="location-query">Venue, city, region, or tournament</label><img src="/assets/figma/search.svg" alt=""><input id="location-query" name="q" type="search" th:value="${q}" placeholder="Search venues, cities, or tournaments…"><button class="primary-button" type="submit">Search locations</button></div>

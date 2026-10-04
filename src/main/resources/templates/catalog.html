@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080c10">
+  <meta name="theme-color" content="#141414">
   <meta name="description"
     content="Find your next bowling ball. Search the Bowler's Journal catalog by name, brand, weight, coverstock, and core.">
   <title>Bowler’s Journal</title>
   <link rel="stylesheet" href="/css/fonts.css">
-  <link rel="stylesheet" href="/css/catalog.css">
+  <link rel="stylesheet" href="/css/catalog.css?v=neutral-chevrons-1">
   <script src="/js/catalog.js" defer></script>
 </head>
 
@@ -29,7 +29,6 @@
     <main id="main">
       <section class="hero" aria-labelledby="hero-title" data-node-id="2:4578">
         <div class="hero-copy">
-          <span class="badge">The bowler's spec library</span>
           <h1 id="hero-title">Browse Bowling Balls</h1>
           <p class="hero-description">Search and compare bowling balls by coverstock, core dynamics, RG, differential,
             finish, and lane condition — without the marketing fog.</p>
@@ -80,15 +79,14 @@
             </div>
           </details>
         </div>
-        <div class="hero-visual" data-node-id="2:4613"><img src="/assets/figma/hero-bowling.png"
-            alt="Bowling balls on an illuminated bowling lane" class="hero-image">
-          <div class="hero-scrim"></div>
+        <div class="hero-visual" data-node-id="2:4613"><img src="/assets/phaze-ii.png"
+            alt="Storm Phaze II bowling ball with red, blue, and purple cover and yellow Phaze II logo" class="hero-image">
           <div class="featured-note">
-            <div class="note-top"><span class="badge green">Editor's benchmark</span><img
-                src="/assets/figma/sparkles.svg" alt=""></div><a href="/catalog/search?brand=Storm&amp;name=Phaze%20II">
+            <a href="/catalog/search?brand=Storm&amp;name=Phaze%20II">
               <h2>Storm Phaze II</h2>
             </a>
             <p>The control benchmark: predictable midlane read with a continuous, forgiving shape.</p>
+          </div>
         </div>
       </section>
       <p class="lookup-status" role="status" th:if="${lookupMessage}" th:text="${lookupMessage}"></p>
