@@ -1,8 +1,3 @@
-<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Ball symbol">
-<rect width="18" height="18" rx="9" fill="#080C10"/>
-<circle id="Thumb hole" cx="10.5" cy="5.5" r="1.5" fill="#45D7FF"/>
-<circle id="Finger hole" cx="6.5" cy="8.5" r="1.5" fill="#45D7FF"/>
-<circle id="Finger hole_2" cx="11.5" cy="10.5" r="1.5" fill="#45D7FF"/>
-</g>
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M25 0C38.8071 0 50 11.1929 50 25C50 38.8071 38.8071 50 25 50C11.1929 50 0 38.8071 0 25C0 11.1929 11.1929 0 25 0ZM34 22C32.3431 22 31 23.3431 31 25C31 26.6569 32.3431 28 34 28C35.6569 28 37 26.6569 37 25C37 23.3431 35.6569 22 34 22ZM22 9C20.3431 9 19 10.3431 19 12C19 13.6569 20.3431 15 22 15C23.6569 15 25 13.6569 25 12C25 10.3431 23.6569 9 22 9ZM34 6C32.3431 6 31 7.34315 31 9C31 10.6569 32.3431 12 34 12C35.6569 12 37 10.6569 37 9C37 7.34315 35.6569 6 34 6Z" fill="white"/>
 </svg>

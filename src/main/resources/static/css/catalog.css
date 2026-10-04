@@ -133,10 +133,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 }
 
 .brand-mark {
-  background:var(--accent);
   width:34px;
   height:34px;
-  border-radius:1px;
   display:grid;
   place-items:center;
 }
