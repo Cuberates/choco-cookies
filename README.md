@@ -11,6 +11,12 @@ Flyway migration `V3__create_accounts_and_journal.sql` creates the account, jour
 
 The [iteration 5 specification](todo/specification_iteration_5.md) documents the behavior and validation rules. Run `./mvnw test` for automated checks; the optional PostgreSQL catalog persistence test requires its dedicated test database variables.
 
+## Featured ball and core showcase
+
+The catalog now shows one selected ball each from Storm, Ebonite, 900 Global, and Brunswick, with its real Bowwwl ball and core images side by side. Flyway V4 supplies verified initial selections. “Refresh featured balls” randomly selects new candidates from each brand's first listing page and saves complete image pairs. Failed brands retain their previous selections; refreshes have a five-minute cooldown.
+
+Normal catalog visits read the saved selections without scraping. The images load directly from Bowwwl. See the [iteration 6 specification](todo/specification_iteration_6.md) and [catalog import notes](CATALOG_IMPORT.md) for details.
+
 ## Inspiration
 Bowlers across the US and Canada often use multiple fragmented platforms to track league results, equipment specs, and ball data. Bowler's Journal brings those pieces together into a single, centralized hub so bowlers can access everything they need without jumping between tools.
 
