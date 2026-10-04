@@ -35,7 +35,6 @@
   function focusSearch() { search.scrollIntoView({ block: 'center' }); search.focus(); }
   document.querySelectorAll('[data-focus-search]').forEach(button => button.addEventListener('click', focusSearch));
   document.querySelectorAll('[data-focus-brand]').forEach(button => button.addEventListener('click', () => {
-    document.querySelector('.filter-panel').open = true;
     const brand = document.querySelector('input[name=brand]');
     brand.scrollIntoView({ block: 'center' }); brand.focus();
   }));

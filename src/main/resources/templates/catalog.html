@@ -10,7 +10,7 @@
   <title>Bowler’s Journal</title>
   <link rel="stylesheet" href="/css/fonts.css">
   <link rel="stylesheet" href="/css/catalog.css?v=neutral-chevrons-1">
-  <script src="/js/catalog.js" defer></script>
+  <script src="/js/catalog.js?v=expanded-filters-1" defer></script>
 </head>
 
 <body><a class="skip-link" href="#main">Skip to content</a>
@@ -46,9 +46,7 @@
             <div><strong th:text="${brands.size()}">0</strong><span>brands tracked</span></div>
             <div><strong th:text="${weights.size()}">0</strong><span>weights available</span></div>
           </div>
-          <details class="filter-panel"
-            th:open="${weight != null or !brand.isEmpty() or !coverstockType.isEmpty() or !coreType.isEmpty() or sort != 'name'}">
-            <summary>Filter &amp; look up</summary>
+          <section class="filter-panel" aria-label="Filter and look up">
             <div class="filters"><label>Brand<input name="brand" form="ball-search" list="brands" th:value="${brand}"
                   placeholder="All brands"><datalist id="brands">
                   <option th:each="value : ${brands}" th:value="${value}"></option>
@@ -77,7 +75,7 @@
               <div class="filter-actions"><button type="submit" form="ball-search" class="secondary-button">Apply
                   filters</button><a href="/catalog">Clear filters</a></div>
             </div>
-          </details>
+          </section>
         </div>
         <div class="hero-visual" data-node-id="2:4613"><img src="/assets/phaze-ii.png"
             alt="Storm Phaze II bowling ball with red, blue, and purple cover and yellow Phaze II logo" class="hero-image">

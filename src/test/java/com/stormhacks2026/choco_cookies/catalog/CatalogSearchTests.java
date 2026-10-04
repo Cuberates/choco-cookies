@@ -61,7 +61,7 @@ class CatalogSearchTests {
                 .andExpect(status().isOk()).andExpect(view().name("catalog"))
                 .andExpect(content().string(containsString("action=\"/catalog/search\"")))
                 .andExpect(content().string(containsString("Find your next")))
-                .andExpect(content().string(containsString("/assets/figma/hero-bowling.png")))
+                .andExpect(content().string(containsString("/assets/phaze-ii.png")))
                 .andExpect(content().string(containsString("/css/catalog.css")))
                 .andExpect(content().string(containsString("id=\"catalog-results\" open=\"open\"")))
                 .andExpect(model().attribute("catalogCount", 22L))
