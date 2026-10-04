@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/journal-shell :: head('Sign in')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><div class="site-shell">
+  <header th:replace="~{fragments/tournament-shell :: header}"></header>
+  <main id="main" class="journal-main auth-main">
+    <h1>Sign in</h1><p class="journal-intro">Keep your league scores and equipment together.</p>
+    <p class="form-error" role="alert" th:if="${param.error != null}">Invalid username or password.</p>
+    <p class="notice" role="status" th:if="${param.registered != null}">Your account is ready. Sign in to start your journal.</p>
+    <p class="notice" role="status" th:if="${param.logout != null}">You have signed out.</p>
+    <form class="journal-form" th:action="@{/login}" method="post">
+      <label>Username<input name="username" autocomplete="username" required maxlength="40" autofocus></label>
+      <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+      <button class="primary-button" type="submit">Sign in</button>
+    </form>
+    <p class="auth-switch">New here? <a href="/register">Create an account</a></p>
+  </main><footer th:replace="~{fragments/journal-shell :: footer}"></footer>
+</div></body></html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/journal-shell :: head(${entryId == null ? 'Add journal entry' : 'Edit journal entry'})}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><div class="site-shell">
+  <header th:replace="~{fragments/tournament-shell :: header}"></header>
+  <main id="main" class="journal-main entry-main">
+    <h1 th:text="${entryId == null ? 'Add journal entry' : 'Edit journal entry'}">Add journal entry</h1>
+    <p class="journal-intro">Log your league session and the balls you brought to the lanes.</p>
+    <form class="journal-form" th:action="${entryId == null ? '/journal' : '/journal/' + entryId}" method="post" th:object="${entry}">
+      <div class="form-error" role="alert" th:if="${#fields.hasErrors('*')}"><p th:each="error : ${#fields.errors('*')}" th:text="${error}"></p></div>
+      <div class="entry-fields">
+        <label>Date<input type="date" th:field="*{bowlingDate}" min="1900-01-01" th:max="${today}" required></label>
+        <label>League name<input th:field="*{leagueName}" required maxlength="160" placeholder="Thursday night league"></label>
+        <label>Bowling alley<input th:field="*{alleyName}" required maxlength="160" placeholder="Alley name"></label>
+        <label>Location<input th:field="*{location}" required maxlength="160" placeholder="City, province / state"></label>
+        <label>Games played<input type="number" th:field="*{games}" min="1" max="100" required></label>
+        <label>Total pin-fall<input type="number" th:field="*{pins}" min="0" max="30000" required aria-describedby="average-help"></label>
+      </div>
+      <p class="field-help" id="average-help">Average is calculated from total pin-fall divided by games played. Each game can contribute up to 300 pins.</p>
+      <fieldset class="ball-picker"><legend>Balls used <span>(up to six)</span></legend>
+        <p class="field-help">Select balls from the catalog. You can also save an entry without selecting equipment.</p>
+        <p th:if="${catalogBalls.empty}" class="field-help">No balls have been imported yet. <a href="/catalog">Browse the catalog</a> to look up equipment.</p>
+        <div class="ball-options" th:unless="${catalogBalls.empty}">
+          <label th:each="ball : ${catalogBalls}" class="ball-option"><input type="checkbox" th:field="*{ballIds}" th:value="${ball.id}"><span><strong th:text="${ball.name}"></strong><small th:text="${ball.brand}"></small></span></label>
+        </div>
+      </fieldset>
+      <label>Notes <span class="field-help">(optional)</span><textarea th:field="*{notes}" rows="4" maxlength="2000" placeholder="Lane conditions, surface changes, or anything you want to remember"></textarea></label>
+      <div class="entry-actions"><button class="primary-button" type="submit">Save entry</button><a class="secondary-button" href="/journal">Cancel</a></div>
+    </form>
+  </main><footer th:replace="~{fragments/journal-shell :: footer}"></footer>
+</div></body></html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/journal-shell :: head('Create an account')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><div class="site-shell">
+  <header th:replace="~{fragments/tournament-shell :: header}"></header>
+  <main id="main" class="journal-main auth-main">
+    <h1>Create an account</h1><p class="journal-intro">Your scores and journal stay private to your account.</p>
+    <form class="journal-form" th:action="@{/register}" method="post" th:object="${registration}">
+      <div class="form-error" role="alert" th:if="${#fields.hasErrors('*')}"><p th:each="error : ${#fields.errors('*')}" th:text="${error}"></p></div>
+      <label>Username<input th:field="*{username}" autocomplete="username" required minlength="3" maxlength="40" pattern="[A-Za-z0-9_-]{3,40}" aria-describedby="username-help"></label>
+      <p class="field-help" id="username-help">3–40 letters, numbers, underscores, or hyphens.</p>
+      <label>Password<input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="72" aria-describedby="password-help"></label>
+      <p class="field-help" id="password-help">At least 8 characters and no more than 72 UTF-8 bytes.</p>
+      <button class="primary-button" type="submit">Create account</button>
+    </form>
+    <p class="auth-switch">Already have an account? <a href="/login">Sign in</a></p>
+  </main><footer th:replace="~{fragments/journal-shell :: footer}"></footer>
+</div></body></html>

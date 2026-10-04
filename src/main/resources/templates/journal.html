@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/journal-shell :: head('My journal')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><div class="site-shell">
+  <header th:replace="~{fragments/tournament-shell :: header}"></header>
+  <main id="main" class="journal-main">
+    <div class="journal-heading"><div><h1>My journal</h1><p class="journal-intro">Track your league sessions, equipment, and progress.</p></div><a class="primary-button" href="/journal/new">Add entry</a></div>
+    <p class="notice" role="status" th:if="${param.saved != null}">Journal entry saved.</p>
+    <p class="notice" role="status" th:if="${param.deleted != null}">Journal entry deleted.</p>
+    <dl class="journal-totals"><div><dt>Total pin-fall</dt><dd th:text="${stats.pins}">0</dd></div><div><dt>Games played</dt><dd th:text="${stats.games}">0</dd></div><div><dt>Overall average</dt><dd th:text="${stats.average == null ? '—' : stats.average}">—</dd></div></dl>
+    <section class="journal-analytics" th:unless="${entries.empty}" aria-labelledby="performance-title">
+      <h2 id="performance-title">Weekly performance</h2><p class="field-help">Weeks start on Monday. Averages are weighted by games played.</p>
+      <div class="chart-grid">
+        <figure><figcaption>Weekly total pin-fall <small th:text="${'Peak: ' + stats.maxWeeklyPins() + ' pins'}"></small></figcaption><div class="chart-scroll" tabindex="0" aria-label="Scroll weekly pin-fall chart">
+          <svg xmlns="http://www.w3.org/2000/svg" class="journal-chart" role="img" aria-labelledby="pins-chart-title" th:attr="viewBox=${'0 0 ' + stats.chartWidth() + ' 250'},width=${stats.chartWidth()}" height="250">
+            <title id="pins-chart-title">Weekly total pin-fall. Exact values appear in the table below.</title>
+            <line x1="30" y1="200" th:attr="x2=${stats.chartWidth() - 15}" y2="200" class="chart-axis"/>
+            <g th:each="week : ${stats.weeks}"><rect th:attr="x=${week.x - 18},y=${200 - week.pinHeight},height=${week.pinHeight}" width="36" class="chart-bar"><title th:text="${week.date + ': ' + week.pins + ' pins'}"></title></rect><text th:attr="x=${week.x}" y="225" text-anchor="middle" th:text="${#temporals.format(week.date, 'MMM d')}"></text></g>
+          </svg>
+        </div></figure>
+        <figure><figcaption>Weekly average <small>Scale: 0–300 pins per game</small></figcaption><div class="chart-scroll" tabindex="0" aria-label="Scroll weekly average chart">
+          <svg xmlns="http://www.w3.org/2000/svg" class="journal-chart" role="img" aria-labelledby="average-chart-title" th:attr="viewBox=${'0 0 ' + stats.chartWidth() + ' 250'},width=${stats.chartWidth()}" height="250">
+            <title id="average-chart-title">Weekly weighted average. Weeks without games have no score.</title>
+            <line x1="30" y1="200" th:attr="x2=${stats.chartWidth() - 15}" y2="200" class="chart-axis"/>
+            <text x="5" y="35">300</text><text x="15" y="200">0</text>
+            <g th:each="week, loop : ${stats.weeks}">
+              <line th:if="${loop.index > 0 and week.average != null and stats.weeks[loop.index - 1].average != null}" th:attr="x1=${stats.weeks[loop.index - 1].x},y1=${stats.weeks[loop.index - 1].averageY},x2=${week.x},y2=${week.averageY}" class="chart-line"/>
+              <circle th:if="${week.average != null}" th:attr="cx=${week.x},cy=${week.averageY}" r="5" class="chart-point"><title th:text="${week.date + ': average ' + week.average}"></title></circle><text th:attr="x=${week.x}" y="225" text-anchor="middle" th:text="${#temporals.format(week.date, 'MMM d')}"></text>
+            </g>
+          </svg>
+        </div></figure>
+      </div>
+      <div class="table-scroll"><table class="weekly-table"><caption>Weekly scores</caption><thead><tr><th scope="col">Week beginning</th><th scope="col">Games</th><th scope="col">Total pins</th><th scope="col">Average</th></tr></thead><tbody><tr th:each="week : ${stats.weeks}"><th scope="row" th:text="${week.date}"></th><td th:text="${week.games}"></td><td th:text="${week.pins}"></td><td th:text="${week.average == null ? '—' : week.average}"></td></tr></tbody></table></div>
+    </section>
+    <section aria-labelledby="sessions-title" class="journal-sessions"><h2 id="sessions-title">League sessions</h2>
+      <div class="journal-empty" th:if="${entries.empty}"><h3>Your first session starts here</h3><p>Log a league night to see your weekly pin-fall and average.</p><a class="primary-button" href="/journal/new">Add your first entry</a></div>
+      <div class="journal-grid"><article class="journal-card" th:each="entry : ${entries}">
+        <time th:datetime="${entry.bowlingDate}" th:text="${#temporals.format(entry.bowlingDate, 'MMM d, yyyy')}"></time><h3 th:text="${entry.leagueName}"></h3>
+        <p><strong th:text="${entry.alleyName}"></strong><span class="entry-location" th:text="${entry.location}"></span></p>
+        <dl class="entry-scores"><div><dt>Games</dt><dd th:text="${entry.games}"></dd></div><div><dt>Total pins</dt><dd th:text="${entry.pins}"></dd></div><div><dt>Average</dt><dd th:text="${entry.average}"></dd></div></dl>
+        <div class="entry-balls" th:unless="${entry.balls.empty}"><h4>Balls used</h4><ul><li th:each="ball : ${entry.balls}"><span th:if="${ball.brand != null}" th:text="${ball.brand + ' '}"></span><span th:text="${ball.name}"></span></li></ul></div>
+        <p class="entry-notes" th:if="${!entry.notes.isEmpty()}" th:text="${entry.notes}"></p>
+        <div class="entry-actions"><a class="secondary-button" th:href="@{/journal/{id}/edit(id=${entry.id})}">Edit</a><form th:action="@{/journal/{id}/delete(id=${entry.id})}" method="post"><button class="secondary-button" type="submit" th:attr="aria-label=${'Delete ' + entry.leagueName + ' entry from ' + entry.bowlingDate}">Delete</button></form></div>
+      </article></div>
+    </section>
+  </main><footer th:replace="~{fragments/journal-shell :: footer}"></footer>
+</div></body></html>
