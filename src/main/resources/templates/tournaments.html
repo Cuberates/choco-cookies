@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#080c10">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#141414">
   <title>Tournaments · Bowler’s Journal</title>
-  <link rel="stylesheet" href="/css/fonts.css"><link rel="stylesheet" href="/css/catalog.css"><link rel="stylesheet" href="/css/tournaments.css">
+  <script src="/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
+  <link rel="stylesheet" href="/css/fonts.css"><link rel="stylesheet" href="/css/catalog.css?v=neutral-chevrons-1"><link rel="stylesheet" href="/css/tournaments.css?v=neutral-3">
 </head>
 <body><a class="skip-link" href="#main">Skip to content</a>
 <div class="site-shell">
   <header th:replace="~{fragments/tournament-shell :: header}"></header>
   <main id="main" class="tournament-main">
     <section class="tournament-hero" aria-labelledby="tournament-title">
-      <div><span class="badge">Your next time on the lanes</span><h1 id="tournament-title">Find your next <span>tournament</span></h1><p>Browse upcoming bowling events, compare entry options, and find a venue near you.</p></div>
+      <div><h1 id="tournament-title">Find your next <span>tournament</span></h1><p>Browse upcoming bowling events, compare entry options, and find a venue near you.</p></div>
       <div class="tournament-stat"><img src="/assets/location.svg" alt=""><strong th:text="${upcomingCount}">0</strong><span>upcoming &amp; ongoing events</span></div>
     </section>
     <nav th:replace="~{fragments/tournament-shell :: tabs('tournaments')}"></nav>
