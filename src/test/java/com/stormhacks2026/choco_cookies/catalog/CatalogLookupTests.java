@@ -72,4 +72,5 @@ class CatalogLookupTests {
                 .andExpect(flash().attribute("lookupMessage", containsString("Use the full Bowwwl")));
         verify(importer, never()).runBall("Storm", "../bad");
     }
+    
 }
