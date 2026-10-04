@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#080c10">
+  <title>Locations · Bowler’s Journal</title>
+  <link rel="stylesheet" href="/css/fonts.css"><link rel="stylesheet" href="/css/catalog.css"><link rel="stylesheet" href="/css/tournaments.css">
+</head>
+<body><a class="skip-link" href="#main">Skip to content</a>
+<div class="site-shell">
+  <header th:replace="~{fragments/tournament-shell :: header}"></header>
+  <main id="main" class="tournament-main">
+    <section class="tournament-hero" aria-labelledby="locations-title"><div><span class="badge">Find your lanes</span><h1 id="locations-title">Explore tournament <span>locations</span></h1><p>Discover venues hosting upcoming events and see what’s on at each location.</p></div><div class="tournament-stat"><img src="/assets/location.svg" alt=""><strong th:text="${results.totalElements}">0</strong><span>matching tournament venues</span></div></section>
+    <nav th:replace="~{fragments/tournament-shell :: tabs('locations')}"></nav>
+    <form class="tournament-search" action="/locations" method="get">
+      <div class="tournament-search-row"><label class="sr-only" for="location-query">Venue, city, region, or tournament</label><img src="/assets/figma/search.svg" alt=""><input id="location-query" name="q" type="search" th:value="${q}" placeholder="Search venues, cities, or tournaments…"><button class="primary-button" type="submit">Search locations</button></div>
+      <div class="tournament-filters location-filters"><label>Region<select name="region"><option value="">All regions</option><option th:each="value : ${regions}" th:value="${value}" th:text="${value}" th:selected="${value == region}"></option></select></label><button class="secondary-button" type="submit">Apply filter</button><a href="/locations">Clear filters</a></div>
+    </form>
+    <section class="tournament-results" aria-labelledby="venues-heading">
+      <div class="tournament-results-heading"><h2 id="venues-heading">Tournament venues</h2><span th:text="${results.totalElements + ' locations found'}"></span></div>
+      <div class="tournament-empty" th:if="${results.empty}"><h3>No locations match these filters</h3><p>Try a different city or region. Venues appear when their tournaments are imported.</p><a class="secondary-button" href="/locations">Clear filters</a></div>
+      <div class="tournament-grid">
+        <article class="tournament-card location-card" th:each="location : ${locations}"><div class="tournament-venue"><img src="/assets/location.svg" alt=""><div><h3 th:text="${location.venueLabel}"></h3><p th:text="${location.locationLabel}"></p></div></div><p class="location-count" th:text="${location.count + ' upcoming / ongoing events'}"></p><p>Next / ongoing event: <span th:text="${location.nextDateLabel}"></span></p><a class="secondary-button tournament-source" th:href="@{/tournaments(venue=${location.venueName},city=${location.city == null ? '' : location.city},region=${location.region},venueMissing=${location.venueName == null})}">Browse tournaments →</a></article>
+      </div>
+      <nav class="tournament-pagination" th:if="${results.totalPages > 1}" aria-label="Location pages"><a class="secondary-button" th:if="${results.hasPrevious()}" th:href="@{/locations(q=${q},region=${region},page=${results.number - 1})}">Previous</a><span th:text="${'Page ' + (results.number + 1) + ' of ' + results.totalPages}"></span><a class="secondary-button" th:if="${results.hasNext()}" th:href="@{/locations(q=${q},region=${region},page=${results.number + 1})}">Next</a></nav>
+    </section>
+  </main>
+  <footer th:replace="~{fragments/tournament-shell :: footer}"></footer>
+</div>
+</body>
+</html>
