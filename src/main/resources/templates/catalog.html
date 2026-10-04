@@ -10,8 +10,9 @@
     content="Find your next bowling ball. Search the Bowler's Journal catalog by name, brand, weight, coverstock, and core.">
   <title>Bowler’s Journal</title>
   <link rel="stylesheet" href="/css/fonts.css">
-  <link rel="stylesheet" href="/css/catalog.css?v=iteration-6">
-  <script src="/js/catalog.js?v=iteration-6" defer></script>
+  <link rel="stylesheet" href="/css/catalog.css?v=carousel-motion-1">
+  <script src="/js/catalog.js?v=carousel-motion-1" defer></script>
+  <script src="/js/carousel.js?v=carousel-motion-1" defer></script>
   <script src="/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
 </head>
 
@@ -97,7 +98,7 @@
         <p class="empty-state" th:if="${featuredBalls.empty}">No featured selections are available. Refresh to discover balls from Bowwwl.</p>
         <div class="carousel" th:unless="${featuredBalls.empty}">
           <button class="carousel-button" data-carousel="previous" aria-label="Previous featured balls"><img src="/assets/figma/chevron-backward.png" alt=""></button>
-          <div class="product-row" id="featured-balls">
+          <div class="carousel-viewport"><div class="product-row" id="featured-balls">
             <article class="ball-card featured-ball-card" th:each="ball : ${featuredBalls}"
               th:attr="data-product-name=${ball.name},data-brand=${ball.brand},data-cover=${ball.coverstockType},data-core=${ball.coreType}">
               <div class="featured-image-pair">
@@ -110,7 +111,7 @@
                 <div class="featured-card-actions"><a class="source-link" th:href="${ball.sourceUrl}" target="_blank" rel="noopener noreferrer">View on Bowwwl ↗</a><button class="secondary-button" type="button" data-save aria-pressed="false" th:attr="aria-label=${'Save ' + ball.name + ' to your arsenal'}">Save</button></div>
               </div>
             </article>
-          </div><button class="carousel-button" data-carousel="next" aria-label="Next featured balls"><img src="/assets/figma/chevron-forward.png" alt=""></button>
+          </div></div><button class="carousel-button" data-carousel="next" aria-label="Next featured balls"><img src="/assets/figma/chevron-forward.png" alt=""></button>
         </div>
         <details class="catalog-results" id="catalog-results"
           th:open="${!name.isEmpty() or weight != null or !brand.isEmpty() or !coverstockType.isEmpty() or !coreType.isEmpty() or results.number > 0 or sort != 'name' or lookupMessage != null}">
