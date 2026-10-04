@@ -12,7 +12,6 @@
   <main id="main" class="tournament-main">
     <section class="tournament-hero" aria-labelledby="tournament-title">
       <div><h1 id="tournament-title">Find your next <span>tournament</span></h1><p>Browse upcoming bowling events, compare entry options, and find a venue near you.</p></div>
-      <div class="tournament-stat"><img src="/assets/location.svg" alt=""><strong th:text="${upcomingCount}">0</strong><span>upcoming &amp; ongoing events</span></div>
     </section>
     <nav th:replace="~{fragments/tournament-shell :: tabs('tournaments')}"></nav>
     <form class="tournament-search" action="/tournaments" method="get">
