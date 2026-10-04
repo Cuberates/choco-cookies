@@ -60,7 +60,6 @@
     updateSavedButtons(); toast(index < 0 ? `${product.name} saved to your arsenal.` : `${product.name} removed from your arsenal.`);
   }));
   const panels = {
-    'sign-in': ['Sign in', 'Accounts are not available yet. You can browse, search, and save an arsenal in this browser without signing in.'],
     guides: ['Bowling ball guides', 'Coverstock affects how the ball responds to friction. Solid, pearl, and hybrid describe common reactive coverstock types.', 'Core type describes the distribution of mass inside a ball. Compare symmetric and asymmetric cores alongside coverstock and available weights.', 'Use the catalog filters to narrow your choices, then save balls to compare their specifications.'],
     glossary: ['Reaction glossary', 'RG (radius of gyration) describes the distribution of mass around a ball’s axis. Differential is the difference between its maximum and minimum RG.', 'Continuous describes a smooth, sustained direction change; angular describes a more pronounced change in direction downlane.'],
     surface: ['Surface guide', 'Surface finish influences when a bowling ball encounters friction. Lower grit finishes generally create earlier traction; smoother or polished finishes typically delay that response.', 'Surface can change with use and maintenance. Check the manufacturer’s recommendations before changing your ball’s finish.'],
@@ -68,7 +67,7 @@
     corrections: ['Corrections', 'Open a ball’s Bowwwl source link to check its details. A catalog administrator can refresh a record using the single-ball import command.'],
     releases: ['Release notes', 'The catalog supports search, combined filters, pagination, and single-ball Bowwwl lookup. This edition adds the Bowler’s Journal design, featured cards, and an arsenal saved in your browser.'],
     contact: ['Contact', 'A contact address has not been configured for Bowler’s Journal yet. For source information, use the Bowwwl link on each catalog record.'],
-    privacy: ['Privacy', 'Saved arsenal selections stay in this browser’s local storage. This screen does not send your email to a mailing service or create an account.', 'Catalog search terms are sent to this application. When you look up a missing ball, its constructed URL is requested from Bowwwl.'],
+    privacy: ['Privacy', 'Saved arsenal selections stay in this browser’s local storage. Registered accounts and private journal entries are stored in the application database. Passwords are stored as hashes; signed-in sessions are stored in the database.', 'Catalog search terms are sent to this application. When you look up a missing ball, its constructed URL is requested from Bowwwl.'],
     terms: ['Terms', 'Catalog information is provided for reference. Check manufacturer specifications and source details before making equipment decisions.'],
     accessibility: ['Accessibility', 'Use Tab to move between controls and Enter or Space to activate buttons. Press Control K or Command K to focus search. Dialogs can be closed with Escape.', 'The page supports keyboard navigation, visible focus indicators, labeled controls, responsive layouts, and reduced motion.'],
     updates: ['Email updates', 'Email updates are not available yet. Your address has not been submitted or saved. You can browse the catalog for equipment details at any time.']

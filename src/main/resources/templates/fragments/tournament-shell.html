@@ -4,16 +4,22 @@
 <header class="site-header" th:fragment="header">
   <div class="header-left">
     <a class="brand" href="/catalog" aria-label="Bowler's Journal home"><span class="brand-mark"><img src="/assets/figma/ball-symbol.svg" alt=""></span><span class="brand-name"><strong>BOWLER’S</strong><small>JOURNAL</small></span></a>
-    <nav class="primary-nav" aria-label="Primary"><a href="/catalog">Ball Database</a><a href="/tournaments">Tournaments</a></nav>
+    <nav class="primary-nav" aria-label="Primary"><a href="/catalog">Ball Database</a><a href="/tournaments">Tournaments</a><a href="/journal">Journal</a></nav>
     <nav th:replace="~{fragments/tournament-shell :: mobileNav}"></nav>
   </div>
+  <div th:replace="~{fragments/tournament-shell :: accountActions}"></div>
 </header>
+<div class="header-actions" th:fragment="accountActions">
+  <a class="secondary-button" th:if="${currentUsername == null}" href="/login">Sign in</a>
+  <form th:if="${currentUsername != null}" th:action="@{/logout}" method="post"><button class="secondary-button" type="submit">Sign out</button></form>
+</div>
 <nav class="mobile-nav dropdown" th:fragment="mobileNav" aria-label="Mobile primary">
   <button class="secondary-button dropdown-toggle" id="mobile-nav-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="mobile-nav-menu">Menu</button>
   <div class="dropdown-menu" id="mobile-nav-menu" aria-labelledby="mobile-nav-toggle">
     <a class="dropdown-item" href="/catalog">Ball Database</a>
     <a class="dropdown-item" href="/tournaments">Tournaments</a>
     <a class="dropdown-item" href="/locations">Locations</a>
+    <a class="dropdown-item" href="/journal">Journal</a>
   </div>
 </nav>
 <nav class="tournament-tabs" th:fragment="tabs(active)" aria-label="Bowling events">

@@ -1,6 +1,16 @@
 # Bowler's Journal
 Bowler's Journal is a unified platform for bowlers to manage equipment, performance, and league information in one place.
 
+## Accounts and journal
+
+Open `/register` to create an account, then sign in at `/login` and open `/journal`. Add, edit, and delete league sessions with their date, league name, alley, location, games played, total pin-fall, notes, and up to six balls from the imported catalog. Averages are calculated automatically; the journal shows weekly pin-fall and weighted averages alongside an accessible scores table.
+
+Catalog, tournament, and location browsing remain public. Journals are private to their account. Passwords use BCrypt hashes, authentication uses Spring Security, and sessions persist through Spring Session JDBC with a 30-minute inactivity timeout. The browser-local arsenal remains separate from journal ball selections.
+
+Flyway migration `V3__create_accounts_and_journal.sql` creates the account, journal, ball association, and JDBC session tables automatically on startup. Configure the existing PostgreSQL connection as described in [DATABASE.md](DATABASE.md). For HTTPS deployments, set `SERVER_SERVLET_SESSION_COOKIE_SECURE=true` and configure trusted proxy forwarding if TLS terminates at a proxy.
+
+The [iteration 5 specification](todo/specification_iteration_5.md) documents the behavior and validation rules. Run `./mvnw test` for automated checks; the optional PostgreSQL catalog persistence test requires its dedicated test database variables.
+
 ## Inspiration
 Bowlers across the US and Canada often use multiple fragmented platforms to track league results, equipment specs, and ball data. Bowler's Journal brings those pieces together into a single, centralized hub so bowlers can access everything they need without jumping between tools.
 

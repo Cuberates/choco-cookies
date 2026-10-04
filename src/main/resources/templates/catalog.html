@@ -9,8 +9,9 @@
     content="Find your next bowling ball. Search the Bowler's Journal catalog by name, brand, weight, coverstock, and core.">
   <title>Bowler’s Journal</title>
   <link rel="stylesheet" href="/css/fonts.css">
-  <link rel="stylesheet" href="/css/catalog.css?v=neutral-chevrons-1">
-  <script src="/js/catalog.js?v=expanded-filters-1" defer></script>
+  <link rel="stylesheet" href="/css/catalog.css?v=iteration-5">
+  <script src="/js/catalog.js?v=iteration-5" defer></script>
+  <script src="/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
 </head>
 
 <body><a class="skip-link" href="#main">Skip to content</a>
@@ -20,11 +21,10 @@
             class="brand-mark"><img src="/assets/figma/ball-symbol.svg" alt=""></span><span
             class="brand-name"><strong>BOWLER’S</strong><small>JOURNAL</small></span></a>
         <nav class="primary-nav" aria-label="Primary"><a href="#catalog-results" data-open-catalog>Ball
-            Database</a><a href="/tournaments">Tournaments</a></nav>
+            Database</a><a href="/tournaments">Tournaments</a><a href="/journal">Journal</a></nav>
+        <nav th:replace="~{fragments/tournament-shell :: mobileNav}"></nav>
       </div>
-      <div class="header-actions">
-        <button class="secondary-button" type="button" data-panel="sign-in">Sign in</button>
-      </div>
+      <div th:replace="~{fragments/tournament-shell :: accountActions}"></div>
     </header>
     <main id="main">
       <section class="hero" aria-labelledby="hero-title" data-node-id="2:4578">
