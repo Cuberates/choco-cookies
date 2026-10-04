@@ -20,7 +20,8 @@ class CatalogLookupTests {
     @BeforeEach void setup() {
         repository = mock(BowlingBallRepository.class);
         importer = mock(CatalogImporter.class);
-        mvc = MockMvcBuilders.standaloneSetup(new CatalogController(repository, importer)).build();
+        mvc = MockMvcBuilders.standaloneSetup(new CatalogController(repository, importer,
+                mock(com.stormhacks2026.choco_cookies.catalog.featured.FeaturedCatalog.class))).build();
     }
     BowlingBall ball() {
         var ball = new BowlingBall();

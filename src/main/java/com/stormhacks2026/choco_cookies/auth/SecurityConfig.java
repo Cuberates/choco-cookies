@@ -2,6 +2,7 @@ package com.stormhacks2026.choco_cookies.auth;
 
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,7 +35,9 @@ public class SecurityConfig {
         };
     }
 
-    @Bean SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Bean
+    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/journal", "/journal/**").authenticated()

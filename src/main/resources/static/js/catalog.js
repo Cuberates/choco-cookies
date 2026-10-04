@@ -46,7 +46,18 @@
   document.querySelectorAll('[data-open-catalog]').forEach(link => link.addEventListener('click', () => { results.open = true; }));
   if (results.open) requestAnimationFrame(() => results.scrollIntoView({ block: 'start' }));
   const row = document.getElementById('featured-balls');
+  document.querySelectorAll('[data-featured-image]').forEach(img => {
+    function fallback() { img.hidden = true; img.nextElementSibling.hidden = false; }
+    img.addEventListener('error', fallback);
+    if (img.complete && img.naturalWidth === 0) fallback();
+  });
+  document.querySelector('[data-featured-refresh]')?.addEventListener('submit', event => {
+    const button = event.currentTarget.querySelector('button');
+    button.disabled = true;
+    button.textContent = 'Refreshing…';
+  });
   document.querySelectorAll('[data-carousel]').forEach(button => button.addEventListener('click', () => {
+    if (!row || !row.firstElementChild) return;
     if (button.dataset.carousel === 'next') row.append(row.firstElementChild);
     else row.prepend(row.lastElementChild);
     row.scrollLeft = 0;
@@ -63,7 +74,7 @@
     guides: ['Bowling ball guides', 'Coverstock affects how the ball responds to friction. Solid, pearl, and hybrid describe common reactive coverstock types.', 'Core type describes the distribution of mass inside a ball. Compare symmetric and asymmetric cores alongside coverstock and available weights.', 'Use the catalog filters to narrow your choices, then save balls to compare their specifications.'],
     glossary: ['Reaction glossary', 'RG (radius of gyration) describes the distribution of mass around a ball’s axis. Differential is the difference between its maximum and minimum RG.', 'Continuous describes a smooth, sustained direction change; angular describes a more pronounced change in direction downlane.'],
     surface: ['Surface guide', 'Surface finish influences when a bowling ball encounters friction. Lower grit finishes generally create earlier traction; smoother or polished finishes typically delay that response.', 'Surface can change with use and maintenance. Check the manufacturer’s recommendations before changing your ball’s finish.'],
-    data: ['Our data', 'The searchable catalog contains records imported from Bowwwl. Each record links back to its source. Missing attributes are shown as Unspecified.', 'The three featured cards and hero are editorial content from the supplied Figma design. Catalog totals reflect the actual database. Imports run on demand when you search for a missing ball using its brand and full name.'],
+    data: ['Our data', 'The searchable catalog contains records imported from Bowwwl. Each record links back to its source. Missing attributes are shown as Unspecified.', 'Featured balls and their core images come from Bowwwl. Refresh selects one ball per brand from the brand listing. Featured selections are stored separately from the searchable catalog. Imports run on demand when you search for a missing ball using its brand and full name.'],
     corrections: ['Corrections', 'Open a ball’s Bowwwl source link to check its details. A catalog administrator can refresh a record using the single-ball import command.'],
     releases: ['Release notes', 'The catalog supports search, combined filters, pagination, and single-ball Bowwwl lookup. This edition adds the Bowler’s Journal design, featured cards, and an arsenal saved in your browser.'],
     contact: ['Contact', 'A contact address has not been configured for Bowler’s Journal yet. For source information, use the Bowwwl link on each catalog record.'],

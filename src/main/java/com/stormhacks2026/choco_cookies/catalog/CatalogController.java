@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CatalogController {
     private final BowlingBallRepository repository;
     private final CatalogImporter importer;
-    public CatalogController(BowlingBallRepository repository, CatalogImporter importer) {
-        this.repository = repository; this.importer = importer;
+    private final com.stormhacks2026.choco_cookies.catalog.featured.FeaturedCatalog featured;
+    public CatalogController(BowlingBallRepository repository, CatalogImporter importer,
+                             com.stormhacks2026.choco_cookies.catalog.featured.FeaturedCatalog featured) {
+        this.repository = repository; this.importer = importer; this.featured = featured;
     }
 
     @GetMapping("/catalog/search")
@@ -98,6 +100,7 @@ public class CatalogController {
         model.addAttribute("coverstockTypes", repository.findCoverstockTypes());
         model.addAttribute("coreTypes", repository.findCoreTypes());
         model.addAttribute("weights", repository.findWeights());
+        model.addAttribute("featuredBalls", featured.selections());
         return "catalog";
     }
 

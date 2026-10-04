@@ -138,15 +138,54 @@ search-button behavior supersedes iteration 2's original admin-only import restr
 
 ## Lane Index design
 
-The catalog uses the Figma Lane Index design with local images, SVG icons, Inter,
-and Roboto Mono fonts under `src/main/resources/static`. The three editorial
-featured cards use the supplied design content; “See more” opens live database
-results. Hero totals reflect actual records, brands, and available weights.
-Search accepts ball names, brands, coverstocks, and cores. Expand “Filters & Bowwwl
-lookup” to combine filters or supply the full brand/name for a missing ball.
+The catalog uses a neutral version of the Lane Index design with local hero artwork,
+SVG icons, Inter, and Roboto Mono fonts under `src/main/resources/static`.
+Featured cards now use real Bowwwl selections and adjacent ball/core images as
+described below; “See more” opens live database results. Hero totals reflect actual
+records, brands, and available weights. Search accepts ball names, brands,
+coverstocks, and cores. Filters are always expanded; combine them or supply the
+full brand/name for a missing ball.
 
 Bookmarks save an arsenal in this browser's local storage. Compare and Arsenal
-Builder show those selections; they are not synchronized to an account. Sign-in
-and email delivery are not configured, and their dialogs state that clearly. The
-email form never stores or sends an address. Ctrl/Command K focuses the search.
+Builder show those selections; they are not synchronized to an account. Accounts
+and private league journals are available through Sign in and Journal. Email
+delivery is not configured; the email form never stores or sends an address.
+Ctrl/Command K focuses the search.
 Font licenses are included alongside the locally served font files.
+
+## Iteration 6: random featured balls
+
+`FeaturedCatalog.BRAND_SLUGS` holds `storm`, `ebonite`, `900-global`, and `brunswick`.
+Each slot in `featured_ball` stores one selected ball and its matching core image.
+Flyway V4 seeds four real selections randomly drawn and verified on 2026-10-04:
+Phaze Crimson, Spartan, Reality Incursion, and Fury Orange/Red Pearl. The source
+URLs and image query tokens are preserved in the migration.
+
+“Refresh featured balls” submits CSRF-protected `POST /catalog/featured/refresh`.
+It reads each brand's first listing page, shuffles its distinct card-detail links,
+and tries at most three candidates to find a complete image pair. Brand listing
+links use `a.card-link[rel=bookmark]`, rather than the main catalog's table selector.
+Product images use `.field--name-field-ball-image img`; cores use
+`.field--name-field-core .field--name-field-core-image img`. Logos and similar-ball
+thumbnails are excluded. Only HTTPS `www.bowwwl.com/sites/default/files/` raster
+image URLs are accepted.
+
+The saved four slots survive restarts. Normal page loads perform no scraping;
+browsers request their images directly from Bowwwl. A failed brand retains its
+previous slot. The existing fetcher enforces robots checks, pacing, and timeouts.
+Refresh is limited to once every five minutes and one in-flight operation per
+application instance. Selection is random within the first listing page, not the
+brand's complete historical catalog. Featured records are separate from imported
+catalog rows and journal equipment associations.
+
+Operators can also refresh once at startup with:
+
+```sh
+java -jar target/choco-cookies-0.0.1-SNAPSHOT.jar \
+  --spring.main.web-application-type=none \
+  --catalog.featured.refresh=true
+```
+
+Use the same PostgreSQL datasource settings as other import commands. Network
+failures retain existing data and print a summary. No source requests are made
+by automated tests; parser/service tests use focused fixtures and mocked fetches.
