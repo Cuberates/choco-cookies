@@ -67,8 +67,8 @@
     surface: ['Surface guide', 'Surface finish influences when a bowling ball encounters friction. Lower grit finishes generally create earlier traction; smoother or polished finishes typically delay that response.', 'Surface can change with use and maintenance. Check the manufacturer’s recommendations before changing your ball’s finish.'],
     data: ['Our data', 'The searchable catalog contains records imported from Bowwwl. Each record links back to its source. Missing attributes are shown as Unspecified.', 'The three featured cards and hero are editorial content from the supplied Figma design. Catalog totals reflect the actual database. Imports run on demand when you search for a missing ball using its brand and full name.'],
     corrections: ['Corrections', 'Open a ball’s Bowwwl source link to check its details. A catalog administrator can refresh a record using the single-ball import command.'],
-    releases: ['Release notes', 'The catalog supports search, combined filters, pagination, and single-ball Bowwwl lookup. This edition adds the Lane Index design, featured cards, and an arsenal saved in your browser.'],
-    contact: ['Contact', 'A contact address has not been configured for Lane Index yet. For source information, use the Bowwwl link on each catalog record.'],
+    releases: ['Release notes', 'The catalog supports search, combined filters, pagination, and single-ball Bowwwl lookup. This edition adds the Bowler’s Journal design, featured cards, and an arsenal saved in your browser.'],
+    contact: ['Contact', 'A contact address has not been configured for Bowler’s Journal yet. For source information, use the Bowwwl link on each catalog record.'],
     privacy: ['Privacy', 'Saved arsenal selections stay in this browser’s local storage. This screen does not send your email to a mailing service or create an account.', 'Catalog search terms are sent to this application. When you look up a missing ball, its constructed URL is requested from Bowwwl.'],
     terms: ['Terms', 'Catalog information is provided for reference. Check manufacturer specifications and source details before making equipment decisions.'],
     accessibility: ['Accessibility', 'Use Tab to move between controls and Enter or Space to activate buttons. Press Control K or Command K to focus search. Dialogs can be closed with Escape.', 'The page supports keyboard navigation, visible focus indicators, labeled controls, responsive layouts, and reduced motion.'],
@@ -112,7 +112,6 @@
     const rect = dialog.getBoundingClientRect();
     if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close();
   });
-  document.getElementById('email-signup').addEventListener('submit', event => { event.preventDefault(); showPanel('updates'); });
   document.getElementById('ball-search').addEventListener('submit', () => {
     const button = document.querySelector('.search-bar button'); button.disabled = true;
     const label = button.querySelector('span'); label.textContent = 'Searching…';

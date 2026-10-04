@@ -136,7 +136,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
   background:var(--accent);
   width:34px;
   height:34px;
-  border-radius:8px;
+  border-radius:2px;
   display:grid;
   place-items:center;
 }
