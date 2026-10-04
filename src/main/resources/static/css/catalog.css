@@ -1336,6 +1336,28 @@ h1 span {
   }
 }
 
+.carousel-viewport {
+  flex:1;
+  min-width:0;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  scroll-snap-type:x mandatory;
+}
+.carousel-viewport::-webkit-scrollbar {display:none;}
+.carousel-viewport .product-row {display:flex;overflow:visible;scroll-snap-type:none;width:100%;}
+.carousel-viewport .product-row>.ball-card {flex:0 0 calc((100% - 48px) / 4);scroll-snap-align:start;}
+.carousel-viewport.is-sliding {overflow:hidden;scroll-snap-type:none;}
+.carousel-viewport.is-sliding .product-row {will-change:transform;}
+.carousel-clone {pointer-events:none;}
+.carousel-button[aria-disabled=true] {opacity:.55;cursor:default;}
+@media(max-width:1300px) {
+  .carousel-viewport .product-row>.ball-card {flex-basis:calc((100% - 16px) / 2);}
+}
+@media(max-width:760px) {
+  .carousel-viewport .product-row>.ball-card {flex-basis:100%;}
+}
+
 @media(prefers-reduced-motion:reduce) {
   html {
     scroll-behavior:auto;

@@ -45,7 +45,6 @@
   });
   document.querySelectorAll('[data-open-catalog]').forEach(link => link.addEventListener('click', () => { results.open = true; }));
   if (results.open) requestAnimationFrame(() => results.scrollIntoView({ block: 'start' }));
-  const row = document.getElementById('featured-balls');
   document.querySelectorAll('[data-featured-image]').forEach(img => {
     function fallback() { img.hidden = true; img.nextElementSibling.hidden = false; }
     img.addEventListener('error', fallback);
@@ -56,12 +55,6 @@
     button.disabled = true;
     button.textContent = 'Refreshing…';
   });
-  document.querySelectorAll('[data-carousel]').forEach(button => button.addEventListener('click', () => {
-    if (!row || !row.firstElementChild) return;
-    if (button.dataset.carousel === 'next') row.append(row.firstElementChild);
-    else row.prepend(row.lastElementChild);
-    row.scrollLeft = 0;
-  }));
   document.querySelectorAll('[data-save]').forEach(button => button.addEventListener('click', () => {
     const product = productFromCard(button.closest('[data-product-name]'));
     const index = saved.findIndex(item => productKey(item) === productKey(product));
