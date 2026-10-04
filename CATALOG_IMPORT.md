@@ -91,8 +91,8 @@ the test's record changes are rolled back. Without these variables this test ski
 
 ## Browse the catalog
 
-Open `/catalog` (or `/`) after starting the application. Name searches match literal,
-case-insensitive substrings. Weight matches any listed weight for a ball; brand,
+Open `/catalog` (or `/`) after starting the application. Search matches literal, case-insensitive substrings in ball names, brands,
+coverstock types, and core types. Weight matches any listed weight for a ball; brand,
 coverstock type, and core type match exactly. Filters combine, and their choices
 come from the complete imported catalog, excluding missing values. Missing
 attributes display as “Unspecified”.
@@ -135,3 +135,18 @@ Pagination, refresh after redirect, and `/catalog` itself only read the database
 Example: `/catalog/search?brand=Storm&name=Phaze%20II`. Use source spelling rather
 than guessing a slug; Phaze 2 does not resolve to Phaze II. This explicitly requested
 search-button behavior supersedes iteration 2's original admin-only import restriction.
+
+## Lane Index design
+
+The catalog uses the Figma Lane Index design with local images, SVG icons, Inter,
+and Roboto Mono fonts under `src/main/resources/static`. The three editorial
+featured cards use the supplied design content; “See more” opens live database
+results. Hero totals reflect actual records, brands, and available weights.
+Search accepts ball names, brands, coverstocks, and cores. Expand “Filters & Bowwwl
+lookup” to combine filters or supply the full brand/name for a missing ball.
+
+Bookmarks save an arsenal in this browser's local storage. Compare and Arsenal
+Builder show those selections; they are not synchronized to an account. Sign-in
+and email delivery are not configured, and their dialogs state that clearly. The
+email form never stores or sends an address. Ctrl/Command K focuses the search.
+Font licenses are included alongside the locally served font files.

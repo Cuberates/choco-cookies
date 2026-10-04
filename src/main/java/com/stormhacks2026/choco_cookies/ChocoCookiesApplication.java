@@ -8,7 +8,8 @@ public class ChocoCookiesApplication {
 
 	public static void main(String[] args) {
 		var context = SpringApplication.run(ChocoCookiesApplication.class, args);
-        if (context.getEnvironment().getProperty("catalog.import", Boolean.class, false)) {
+        if (context.getEnvironment().getProperty("catalog.import", Boolean.class, false)
+                || context.getEnvironment().getProperty("tournaments.import", Boolean.class, false)) {
             context.close();
         }
 	}

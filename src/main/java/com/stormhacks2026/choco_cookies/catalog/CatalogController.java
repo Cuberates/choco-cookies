@@ -90,6 +90,7 @@ public class CatalogController {
                 ball.getName(), ball.getBrand(), ball.getCoverstockType(), ball.getCoreType(),
                 ball.getWeights().stream().sorted().toList(), ball.getSourceUrl())).toList());
         model.addAttribute("results", results);
+        model.addAttribute("catalogCount", repository.count());
         model.addAttribute("name", name); model.addAttribute("weight", weight);
         model.addAttribute("coverstockType", coverstockType); model.addAttribute("coreType", coreType);
         model.addAttribute("brand", brand); model.addAttribute("sort", sort);
@@ -105,7 +106,11 @@ public class CatalogController {
             var predicates = new java.util.ArrayList<jakarta.persistence.criteria.Predicate>();
             if (!name.isBlank()) {
                 String escaped = name.toLowerCase(Locale.ROOT).replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_");
-                predicates.add(cb.like(cb.lower(root.get("name")), "%" + escaped + "%", '\\'));
+                predicates.add(cb.or(
+                        cb.like(cb.lower(root.get("name")), "%" + escaped + "%", '\\'),
+                        cb.like(cb.lower(root.get("brand")), "%" + escaped + "%", '\\'),
+                        cb.like(cb.lower(root.get("coverstockType")), "%" + escaped + "%", '\\'),
+                        cb.like(cb.lower(root.get("coreType")), "%" + escaped + "%", '\\')));
             }
             if (weight != null) predicates.add(cb.isMember(weight, root.get("weights")));
             if (!coverstock.isEmpty()) predicates.add(cb.equal(root.get("coverstockType"), coverstock));

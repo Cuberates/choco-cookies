@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header class="site-header" th:fragment="header">
+  <div class="header-left">
+    <a class="brand" href="/catalog" aria-label="Bowler's Journal home"><span class="brand-mark"><img src="/assets/figma/ball-symbol.svg" alt=""></span><span class="brand-name"><strong>BOWLER’S</strong><small>JOURNAL</small></span></a>
+    <nav class="primary-nav" aria-label="Primary"><a href="/catalog">Ball Database</a><a href="/tournaments">Tournaments</a><a href="/locations">Locations</a></nav>
+  </div>
+  <a class="secondary-button" href="/catalog">Explore catalog</a>
+</header>
+<nav class="tournament-tabs" th:fragment="tabs(active)" aria-label="Bowling events">
+  <a href="/tournaments" th:attr="aria-current=${active == 'tournaments' ? 'page' : null}">Tournaments</a>
+  <a href="/locations" th:attr="aria-current=${active == 'locations' ? 'page' : null}">Locations</a>
+</nav>
+<footer class="tournament-footer" th:fragment="footer">
+  <p>© 2026 Bowler’s Journal</p>
+  <p>Listings from <a href="https://tournamentbowl.com/open/tournaments.cfm?which=upcoming" target="_blank" rel="noopener noreferrer">Tournament Bowl</a>. Confirm dates and fees with the organizer.</p>
+</footer>
+</body>
+</html>

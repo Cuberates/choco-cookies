@@ -35,6 +35,9 @@ class CatalogSearchTests {
         ball("Storm Beta", "Other", "Pearl", "Asymmetric", Set.of(14));
         ball("100%_Ball", null, null, null, Set.of());
         assertEquals(2, count("sToRm", null, "", "", ""));
+        assertEquals(1, count("other", null, "", "", ""));
+        assertEquals(1, count("pearl", null, "", "", ""));
+        assertEquals(1, count("asymmetric", null, "", "", ""));
         assertEquals(1, count("", 12, "", "", ""));
         assertEquals(1, count("", null, "Solid", "", ""));
         assertEquals(1, count("", null, "", "Symmetric", ""));
@@ -57,6 +60,11 @@ class CatalogSearchTests {
                 .param("weight", "15").param("coverstockType", "Solid").param("coreType", "Symmetric"))
                 .andExpect(status().isOk()).andExpect(view().name("catalog"))
                 .andExpect(content().string(containsString("action=\"/catalog/search\"")))
+                .andExpect(content().string(containsString("Find your next")))
+                .andExpect(content().string(containsString("/assets/figma/hero-bowling.png")))
+                .andExpect(content().string(containsString("/css/catalog.css")))
+                .andExpect(content().string(containsString("id=\"catalog-results\" open=\"open\"")))
+                .andExpect(model().attribute("catalogCount", 22L))
                 .andExpect(content().string(containsString("21 balls found")))
                 .andExpect(content().string(containsString("Page 1 of 2")))
                 .andExpect(content().string(containsString("value=\"Brand\"")))
